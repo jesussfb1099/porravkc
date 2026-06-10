@@ -1,0 +1,278 @@
+/* ============================================
+   La PorraVKC — Shared Styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #08080f;
+  --bg1: #0f0f1a;
+  --bg2: #16162a;
+  --bg3: #1e1e35;
+  --gold: #f59e0b;
+  --gold-dim: rgba(245,158,11,0.15);
+  --gold-dim2: rgba(245,158,11,0.08);
+  --lime: #a3e635;
+  --lime-dim: rgba(163,230,53,0.15);
+  --white: #ffffff;
+  --white70: rgba(255,255,255,0.7);
+  --white40: rgba(255,255,255,0.4);
+  --white15: rgba(255,255,255,0.15);
+  --white08: rgba(255,255,255,0.08);
+  --white05: rgba(255,255,255,0.05);
+  --red: #ef4444;
+  --green: #22c55e;
+  --border: rgba(255,255,255,0.08);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --font: 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input, select, textarea {
+  font-family: var(--font);
+  outline: none;
+}
+
+/* ---- Utility ---- */
+.hidden { display: none !important; }
+
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #08080f;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: var(--radius-sm);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+}
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-lime {
+  background: var(--lime);
+  color: #0a1a00;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-lime:active { transform: scale(0.97); }
+
+.btn-ghost {
+  background: var(--white08);
+  color: var(--white70);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.btn-danger {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+.btn-success {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(34,197,94,0.2);
+}
+
+.input-field {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: 15px;
+  padding: 14px 16px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.input-field:focus { border-color: var(--gold); }
+.input-field::placeholder { color: var(--white40); }
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white70);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,158,11,0.2); }
+.badge-lime { background: var(--lime-dim); color: var(--lime); }
+.badge-admin { background: rgba(139,92,246,0.15); color: #a78bfa; font-size: 10px; padding: 2px 8px; }
+.badge-paid { background: rgba(34,197,94,0.15); color: #22c55e; }
+.badge-pending { background: rgba(239,68,68,0.12); color: #f87171; }
+
+/* ---- Animations ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(245,158,11,0.15); }
+  50%       { box-shadow: 0 0 40px rgba(245,158,11,0.35); }
+}
+
+.anim-1 { animation: fadeUp 0.5s ease both; }
+.anim-2 { animation: fadeUp 0.5s 0.1s ease both; }
+.anim-3 { animation: fadeUp 0.5s 0.2s ease both; }
+.anim-4 { animation: fadeUp 0.5s 0.3s ease both; }
+.anim-5 { animation: fadeUp 0.5s 0.4s ease both; }
+
+/* ---- Modal overlay ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+.modal-overlay.center { align-items: center; padding: 20px; }
+
+.modal-sheet {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  width: 100%;
+  max-height: 92dvh;
+  overflow-y: auto;
+  padding: 24px 20px;
+  animation: slideUp 0.3s ease;
+}
+.modal-sheet.rounded { border-radius: var(--radius-lg); max-width: 480px; margin: auto; }
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--white15);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+/* ---- Divider ---- */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--white15); border-radius: 2px; }
+
+/* ---- Toast ---- */
+#toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

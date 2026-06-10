@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f59e0b">
+  <title>Crear porra · La PorraVKC</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding: 0 20px 40px; }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 0 8px;
+    }
+    .back-btn {
+      width: 38px;
+      height: 38px;
+      background: var(--white08);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--white);
+    }
+    .top-bar h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .page-hero {
+      text-align: center;
+      padding: 20px 0 28px;
+    }
+    .page-hero .icon { font-size: 48px; margin-bottom: 12px; display: block; }
+    .page-hero h2 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #f59e0b, #fde68a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-hero p { font-size: 14px; color: var(--white40); }
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group { display: flex; flex-direction: column; }
+
+    /* Bote selector */
+    .bote-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .bote-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--white70);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .bote-btn:active { transform: scale(0.95); }
+    .bote-btn.active {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .custom-bote-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .custom-bote-row label { margin: 0; font-size: 13px; white-space: nowrap; }
+    .custom-bote-row input { flex: 1; }
+
+    /* Preview card */
+    .preview-card {
+      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(163,230,53,0.04));
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: none;
+    }
+    .preview-card.show { display: block; }
+    .preview-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .preview-row span:first-child { color: var(--white40); }
+    .preview-row span:last-child { font-weight: 600; }
+
+    .link-preview {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--white70);
+      font-family: monospace;
+      margin-top: 10px;
+      word-break: break-all;
+    }
+
+    .submit-section {
+      margin-top: 8px;
+    }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--white40);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar anim-1">
+    <button class="back-btn" onclick="location.href='index.html'">←</button>
+    <h1>Nueva porra</h1>
+  </div>
+
+  <div class="page-hero anim-1">
+    <span class="icon">🏟️</span>
+    <h2>Crea tu sala</h2>
+    <p>Solo tarda 30 segundos · Comparte el link y listo</p>
+  </div>
+
+  <div class="form-section anim-2">
+
+    <div class="form-group">
+      <label for="nombre-sala">Nombre del grupo</label>
+      <input type="text" id="nombre-sala" class="input-field" placeholder="Ej: Los del curro, Los Roscas..." maxlength="40" oninput="actualizarPreview()">
+    </div>
+
+    <div class="form-group">
+      <label for="tu-nombre">Tu nombre (serás el admin)</label>
+      <input type="text" id="tu-nombre" class="input-field" placeholder="Ej: Jesús, Pablito, Rober..." maxlength="30" oninput="actualizarPreview()">
+    </div>
+
+    <div class="form-group">
+      <label>Bote por persona</label>
+      <div class="bote-grid">
+        <button class="bote-btn active" data-bote="0" onclick="selBote(0, this)">Gratis</button>
+        <button class="bote-btn" data-bote="25" onclick="selBote(25, this)">25€</button>
+        <button class="bote-btn" data-bote="50" onclick="selBote(50, this)">50€</button>
+        <button class="bote-btn" data-bote="100" onclick="selBote(100, this)">100€</button>
+      </div>
+      <div class="custom-bote-row" id="custom-row" style="display:none">
+        <label for="custom-bote">Cantidad:</label>
+        <input type="number" id="custom-bote" class="input-field" placeholder="€" min="0" max="9999" oninput="actualizarPreview()">
+      </div>
+      <button class="bote-btn" id="otro-btn" style="width:100%;margin-top:8px" onclick="toggleOtro()">✏️ Otro importe</button>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-card" id="preview">
+      <div class="preview-title">🔍 Vista previa de tu sala</div>
+      <div class="preview-row">
+        <span>Nombre</span>
+        <span id="prev-nombre">—</span>
+      </div>
+      <div class="preview-row">
+        <span>Admin</span>
+        <span id="prev-admin">—</span>
+      </div>
+      <div class="preview-row">
+        <span>Bote</span>
+        <span id="prev-bote">Gratis</span>
+      </div>
+      <div class="preview-row">
+        <span>Partidos</span>
+        <span>104 partidos · Mundial 2026</span>
+      </div>
+      <div class="link-preview" id="prev-link">El link se generará al crear la sala</div>
+    </div>
+
+    <div class="submit-section">
+      <button class="btn-primary" onclick="crearSala()">
+        🚀 Crear sala y copiar link
+      </button>
+      <p class="disclaimer">
+        Todo se guarda en tu navegador · Sin registro · Sin servidores
+      </p>
+    </div>
+
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="partidos.js"></script>
+  <script>
+    let boteSeleccionado = 0;
+    let otroAbierto = false;
+
+    function selBote(val, btn) {
+      document.querySelectorAll('.bote-btn[data-bote]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      boteSeleccionado = val;
+      document.getElementById('otro-btn').textContent = '✏️ Otro importe';
+      document.getElementById('custom-row').style.display = 'none';
+      otroAbierto = false;
+      actualizarPreview();
+    }
+
+    function toggleOtro() {
+      otroAbierto = !otroAbierto;
+      document.getElementById('custom-row').style.display = otroAbierto ? 'flex' : 'none';
+      document.getElementById('otro-btn').textContent = otroAbierto ? '✕ Cancelar' : '✏️ Otro importe';
+      if (otroAbierto) {
+        document.querySelectorAll('.bote-btn[data-bote]').forEach(b => b.classList.remove('active'));
+        document.getElementById('custom-bote').focus();
+      } else {
+        boteSeleccionado = 0;
+        document.querySelector('.bote-btn[data-bote="0"]').classList.add('active');
+      }
+      actualizarPreview();
+    }
+
+    function getBoteActual() {
+      if (otroAbierto) {
+        const val = parseInt(document.getElementById('custom-bote').value) || 0;
+        return val;
+      }
+      return boteSeleccionado;
+    }
+
+    function actualizarPreview() {
+      const nombre = document.getElementById('nombre-sala').value.trim();
+      const admin = document.getElementById('tu-nombre').value.trim();
+      const bote = getBoteActual();
+
+      if (nombre || admin) {
+        document.getElementById('preview').classList.add('show');
+        document.getElementById('prev-nombre').textContent = nombre || '—';
+        document.getElementById('prev-admin').textContent = admin || '—';
+        document.getElementById('prev-bote').textContent = bote ? bote + '€ por persona' : 'Gratis';
+        document.getElementById('prev-link').textContent = nombre
+          ? `${location.origin}/sala.html?id=XXXXXX`
+          : 'El link se generará al crear la sala';
+      }
+    }
+
+    function crearSala() {
+      const nombre = document.getElementById('nombre-sala').value.trim();
+      const admin = document.getElementById('tu-nombre').value.trim();
+
+      if (!nombre) {
+        toast('⚠️ Pon un nombre al grupo');
+        document.getElementById('nombre-sala').focus();
+        return;
+      }
+      if (!admin) {
+        toast('⚠️ Pon tu nombre');
+        document.getElementById('tu-nombre').value.trim();
+        document.getElementById('tu-nombre').focus();
+        return;
+      }
+
+      const bote = getBoteActual();
+      const id = generarId();
+
+      const sala = {
+        id,
+        nombre,
+        admin,
+        bote,
+        creadaEn: Date.now(),
+        participantes: [
+          { nombre: admin, esAdmin: true, aprobado: true, pagado: false, puntos: 0, nPorras: 0 }
+        ],
+        solicitudes: [],
+        resultados: {},
+        predicciones: {}
+      };
+
+      saveSala(sala);
+      setMiNombre(id, admin);
+
+      const link = `${location.origin.replace(/\/$/, '')}${location.pathname.replace('crear.html', '')}sala.html?id=${id}`;
+
+      // Copiar link
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(link).then(() => {
+          toast('✅ Sala creada · Link copiado');
+        }).catch(() => {
+          toast('✅ Sala creada');
+        });
+      } else {
+        toast('✅ Sala creada');
+      }
+
+      setTimeout(() => {
+        location.href = `sala.html?id=${id}`;
+      }, 800);
+    }
+  </script>
+</body>
+</html>
